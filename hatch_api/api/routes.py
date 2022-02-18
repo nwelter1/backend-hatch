@@ -31,6 +31,7 @@ def posts():
         return {'error':'sortBy parameter is invalid'}, 400
     if not call.checkSortDirection():
         return {'error':'Sorting direction parameter is invalid'}, 400
+    return call.getAllPosts()
 
 # Old route below - realized it is easier to do this via OOP
 

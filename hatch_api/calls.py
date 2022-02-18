@@ -1,4 +1,4 @@
-from flask import json, request
+from flask import json, jsonify, request
 import requests
 
 
@@ -15,13 +15,13 @@ class Call:
 
     def setDirection(self, direction):
         if not direction:
-            return 'id'
+            return 'asc'
         return direction
 
     def tagList(self, tags):
         return tags.split(',')
     
-    def getPosts(self, tag):
+    def getPostsByTag(self, tag):
         res = requests.get(f'https://api.hatchways.io/assessment/blog/posts?tag={tag}')
         return res.json()['posts']
 
@@ -35,7 +35,7 @@ class Call:
     
     # Error handling
     def checkSortDirection(self):
-        print(self.direction)
+        print(self.direction, 'hello')
         if self.direction != 'asc' and self.direction != 'desc':
             return False
         return True
@@ -45,6 +45,25 @@ class Call:
         if self.sort_by not in fields:
             return False
         return True
+
+    def getAllPosts(self):
+        posts = []
+        for tag in self.tags:
+            tag_posts = self.getPostsByTag(tag)
+            for post in tag_posts:
+                posts.append(post)
+        unique_posts = self.removeDuplicates(posts)
+        sorted_posts = self.sortByField(unique_posts)
+        return jsonify(sorted_posts), 200
+    
+    def removeDuplicates(self, posts):
+        seen = set()
+        clean_posts = []
+        for post in posts:
+            if post['id'] not in seen:
+                seen.add(post['id'])
+                clean_posts.append(post)
+        return clean_posts
 
 
 
