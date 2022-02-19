@@ -3,6 +3,7 @@
 ### Description
 Take-home assessment code for the HW blog posts API project using Flask.
 NOTE: Extra credit portion (caching API calls) is not fully implemented here... but can be using the [Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) package. Go check it out!
+ANother implementation in FastAPI [here](https://github.com/nwelter1/hatch-backend-FastAPI)
 
 ## GET STARTED HERE:
 - If you want this application to run locally, clone this repo, and do the following:
