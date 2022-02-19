@@ -11,17 +11,17 @@ def ping():
     print(ping)
     if ping == 200:
         return {'success':True}, 200
-    return {'success': False}
+    return {'failure': False}, 400
 
 
 # Route 2 - API Posts
 @api.route('/posts', methods=['GET'])
 def posts():
-    posts = []
     # Getting Params
     tags = request.args.get('tags')
     sortBy = request.args.get('sortBy')
     direction = request.args.get('direction')
+    print(tags,sortBy,direction)
     # checking for invalid queries
     if not tags:
         return {'error':'Tags parameter is required'}, 400
@@ -59,19 +59,19 @@ def posts():
 #     return jsonify(posts)
 
     
-    # elif sortBy:
-    #     fields = set('id', 'reads', 'likes', 'popularity')
-    #     if sortBy not in fields:
-    #         return {'message': 'Invalid Syntax'}, 401
-    #     queries = []
-    #     for tag in tags:
-    #         pass
+#     elif sortBy:
+#         fields = set('id', 'reads', 'likes', 'popularity')
+#         if sortBy not in fields:
+#             return {'message': 'Invalid Syntax'}, 401
+#         queries = []
+#         for tag in tags:
+#             pass
         
-    #     #posts = requests.get('https://api.hatchways.io/assessment/blog/posts?tag=tech')
-    # elif not direction:
-    #     pass
-    # else:
-    #     pass
+#         #posts = requests.get('https://api.hatchways.io/assessment/blog/posts?tag=tech')
+#     elif not direction:
+#         pass
+#     else:
+#         pass
 
 
 
